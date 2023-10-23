@@ -42,6 +42,70 @@
 // 3. Uses fetch() at the modified endpoint
 // 4. Using the chosen approach (promise chaining or async/await), convert the response to json and return the data in its entirety
 
+// Start of Assignment
 
+// Async/Await Approch
+
+async function getCatFacts(number) {
+    // endpoint URL based on the inpu number
+    const url = `https://catfact.ninja/facts?limit=${number}`;
+  
+    try {
+      // request to the API
+      const response = await fetch(url);
+  
+      // check if the response status is OK (status code 200)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      // Convert the response to JSON
+      const data = await response.json();
+  
+      // return the data
+      return data;
+
+      // handle errors
+    } catch (error) {
+      
+      console.error('Error fetching cat facts:', error);
+      return null;
+    }
+  }
+  getCatFacts(5).then(catFacts => {
+    if (catFacts) {
+      console.log('Cat Facts:', catFacts);
+    }
+  });
+  
+
+
+//Promise Chaining Approach
+
+function getCatFacts(number) {
+    const url = `https://catfact.ninja/facts?limit=${number}`;
+  
+    return fetch(url)
+      .then(response => {
+        // Check if the response status is OK (200)
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // return the response in JSON file
+        return response.json();
+      })
+      .then(data => {
+
+        return data;
+      })
+
+      // handle errors
+      .catch(error => {  
+        console.error('Error fetching cat facts:', error);
+        return null;
+      });
+  }
+  
 
 //END OF ASSIGNMENT
+
